@@ -20,6 +20,7 @@ jobs:
 
       - name: Build with Maven
         env:
+          DEPLOYED: ${{ secrets.DEPLOYED }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           ISSUER: ${{ secrets.ISSUER }}
           TOKEN_EXPIRE_TIME: ${{ secrets.TOKEN_EXPIRE_TIME }}
