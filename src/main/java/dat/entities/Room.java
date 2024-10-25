@@ -45,7 +45,7 @@ public class Room {
     }
 
     public Room(RoomDTO roomDTO){
-        this.roomId = roomDTO.getId();
+        this.roomId = roomDTO.getRoomId();
         this.roomNumber = roomDTO.getRoomNumber();
         this.roomPrice = BigDecimal.valueOf(roomDTO.getRoomPrice());
         this.roomType = roomDTO.getRoomType();

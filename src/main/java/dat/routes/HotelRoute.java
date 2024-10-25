@@ -15,7 +15,7 @@ public class HotelRoute {
         return () -> {
             get("/populate", hotelController::populate);
             post("/", hotelController::create, Role.USER);
-            get("/", hotelController::readAll);
+            get("/", hotelController::readAll, Role.USER);
             get("/{id}", hotelController::read);
             put("/{id}", hotelController::update);
             delete("/{id}", hotelController::delete);
