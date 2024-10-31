@@ -5,6 +5,7 @@ import dat.controllers.IController;
 import dat.daos.impl.HotelDAO;
 import dat.dtos.HotelDTO;
 import dat.entities.Hotel;
+import dat.exceptions.ApiException;
 import io.javalin.http.Context;
 import jakarta.persistence.EntityManagerFactory;
 import org.jetbrains.annotations.NotNull;
@@ -21,71 +22,61 @@ public class HotelController implements IController<HotelDTO, Integer> {
     }
 
     @Override
-    public void read(Context ctx)  {
-        // request
-        int id = ctx.pathParamAsClass("id", Integer.class).check(this::validatePrimaryKey, "Not a valid id").get();
-        // DTO
-        HotelDTO hotelDTO = dao.read(id);
-        // response
-        ctx.res().setStatus(200);
-        ctx.json(hotelDTO, HotelDTO.class);
+    public void read(Context ctx) throws ApiException {
+
+        try {
+            int id = Integer.parseInt(ctx.pathParam("id"));
+            HotelDTO hotelDTO = dao.read(id);
+            ctx.res().setStatus(200);
+            ctx.json(hotelDTO, HotelDTO.class);
+        } catch (NumberFormatException e) {
+            ctx.res().setStatus(400);
+            throw new ApiException(400, "Missing required parameter: id");
+        }
     }
 
     @Override
-    public void readAll(Context ctx) {
-        // List of DTOS
+    public void readAll(Context ctx) throws ApiException {
         List<HotelDTO> hotelDTOS = dao.readAll();
-        // response
         ctx.res().setStatus(200);
         ctx.json(hotelDTOS, HotelDTO.class);
     }
 
     @Override
-    public void create(Context ctx) {
-        // request
+    public void create(Context ctx) throws ApiException {
         HotelDTO jsonRequest = ctx.bodyAsClass(HotelDTO.class);
-        // DTO
         HotelDTO hotelDTO = dao.create(jsonRequest);
-        // response
         ctx.res().setStatus(201);
         ctx.json(hotelDTO, HotelDTO.class);
     }
 
     @Override
-    public void update(Context ctx) {
-        // request
-        int id = ctx.pathParamAsClass("id", Integer.class).check(this::validatePrimaryKey, "Not a valid id").get();
-        // dto
-        HotelDTO hotelDTO = dao.update(id, validateEntity(ctx));
-        // response
-        ctx.res().setStatus(200);
-        ctx.json(hotelDTO, Hotel.class);
+    public void update(Context ctx) throws ApiException {
+        try {
+            int id = Integer.parseInt(ctx.pathParam("id"));
+            HotelDTO hotelDTOfromJson = ctx.bodyAsClass(HotelDTO.class);
+            HotelDTO hotelDTO = dao.update(id, hotelDTOfromJson);
+            ctx.res().setStatus(200);
+            ctx.json(hotelDTO, HotelDTO.class);
+            ctx.res().setStatus(200);
+            ctx.json(hotelDTO, Hotel.class);
+        } catch (NumberFormatException e) {
+            throw new ApiException(400, "Missing required parameter: id");
+        }
     }
 
     @Override
-    public void delete(Context ctx) {
-        // request
-        int id = ctx.pathParamAsClass("id", Integer.class).check(this::validatePrimaryKey, "Not a valid id").get();
-        dao.delete(id);
-        // response
-        ctx.res().setStatus(204);
+    public void delete(Context ctx) throws ApiException {
+        try {
+            int id = Integer.parseInt(ctx.pathParam("id"));
+            dao.delete(id);
+            ctx.res().setStatus(204);
+        } catch (NumberFormatException e) {
+            throw new ApiException(400, "Missing required parameter: id");
+        }
     }
 
-    @Override
-    public boolean validatePrimaryKey(Integer integer) {
-        return dao.validatePrimaryKey(integer);
-    }
-
-    @Override
-    public HotelDTO validateEntity(Context ctx) {
-        return ctx.bodyValidator(HotelDTO.class)
-                .check( h -> h.getHotelAddress() != null && !h.getHotelAddress().isEmpty(), "Hotel address must be set")
-                .check( h -> h.getHotelName() != null && !h.getHotelName().isEmpty(), "Hotel name must be set")
-                .check( h -> h.getHotelType() != null, "Hotel type must be set")
-                .get();
-    }
-
-    public void populate(Context ctx) {
+    public void populate(Context ctx) throws ApiException {
         dao.populate();
         ctx.res().setStatus(200);
         ctx.json("{ \"message\": \"Database has been populated\" }");

@@ -52,7 +52,7 @@ Accept: application/json
 Authorization: Bearer {{jwt_token}}
 
 ###
-GET {{url}}/hotels/2
+GET {{url}}/hotels/12
 
 ###
 POST {{url}}/hotels
@@ -76,7 +76,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE {{url}}/hotels/5
+DELETE {{url}}/hotels/2
 Authorization: Bearer {{jwt_token}}
 
 // Room API
