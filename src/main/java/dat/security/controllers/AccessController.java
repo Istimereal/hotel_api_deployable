@@ -1,6 +1,7 @@
 package dat.security.controllers;
 
 import dat.security.enums.Role;
+import dat.security.exceptions.NotAuthorizedException;
 import dk.bugelhartmann.UserDTO;
 import io.javalin.http.Context;
 import io.javalin.http.UnauthorizedResponse;
@@ -31,7 +32,8 @@ public class AccessController implements IAccessController {
         // Check if the user is authenticated
         try {
             securityController.authenticate().handle(ctx);
-        } catch (UnauthorizedResponse e) {
+        }
+        catch (UnauthorizedResponse e) {
             throw new UnauthorizedResponse(e.getMessage());
         } catch (Exception e) {
             throw new UnauthorizedResponse("You need to log in, dude! Or you token is invalid.");

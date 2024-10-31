@@ -8,7 +8,6 @@ import dat.entities.Hotel;
 import dat.exceptions.ApiException;
 import io.javalin.http.Context;
 import jakarta.persistence.EntityManagerFactory;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -30,7 +29,6 @@ public class HotelController implements IController<HotelDTO, Integer> {
             ctx.res().setStatus(200);
             ctx.json(hotelDTO, HotelDTO.class);
         } catch (NumberFormatException e) {
-            ctx.res().setStatus(400);
             throw new ApiException(400, "Missing required parameter: id");
         }
     }

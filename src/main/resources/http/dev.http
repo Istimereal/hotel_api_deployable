@@ -52,7 +52,7 @@ Accept: application/json
 Authorization: Bearer {{jwt_token}}
 
 ###
-GET {{url}}/hotels/12
+GET {{url}}/hotels/23
 
 ###
 POST {{url}}/hotels
