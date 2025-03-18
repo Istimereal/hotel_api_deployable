@@ -50,6 +50,8 @@ class HotelDAOTest {
             em.getTransaction().begin();
             em.createQuery("DELETE FROM Room ").executeUpdate();
             em.createQuery("DELETE FROM Hotel ").executeUpdate();
+            em.createQuery("DELETE FROM User ").executeUpdate();
+            em.createQuery("DELETE FROM Role ").executeUpdate();
             em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
