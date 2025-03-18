@@ -1,5 +1,6 @@
 package dat.entities;
 
+import dat.dtos.HotelDTO;
 import dat.dtos.RoomDTO;
 import jakarta.persistence.*;
 import lombok.Getter;

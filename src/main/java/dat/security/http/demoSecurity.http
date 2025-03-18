@@ -6,15 +6,15 @@ POST {{url}}/auth/register/
 
 {
     "username": "user",
-    "password": "test123"
+    "password": "1234"
 }
 
 ###
 POST {{url}}/auth/login/
 
 {
-    "username": "user",
-    "password": "test123"
+    "username": "jon",
+    "password": "1234"
 }
 
 > {%
@@ -38,7 +38,7 @@ Accept: application/json
 Authorization: Bearer {{jwt_token}}
 
 {
-    "role": "superman"
+    "role": "admin"
 }
 Accept: application/json
 Authorization: Bearer {{jwt_token}}

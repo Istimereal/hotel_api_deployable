@@ -13,7 +13,7 @@ public class HotelRoute {
     protected EndpointGroup getRoutes() {
 
         return () -> {
-            get("/populate", hotelController::populate);
+            post("/populate", hotelController::populate);
             post("/", hotelController::create, Role.USER);
             get("/", hotelController::readAll, Role.USER);
             get("/{id}", hotelController::read);

@@ -23,6 +23,19 @@ public class RoomDTO {
         this.roomType = room.getRoomType();
     }
 
+    public RoomDTO(Integer roomNumber, Integer roomPrice, Room.RoomType roomType) {
+        this.roomNumber = roomNumber;
+        this.roomPrice = roomPrice;
+        this.roomType = roomType;
+    }
+
+    public RoomDTO(Integer roomId, Integer roomNumber, Integer roomPrice, Room.RoomType roomType) {
+        this.roomId = roomId;
+        this.roomNumber = roomNumber;
+        this.roomPrice = roomPrice;
+        this.roomType = roomType;
+    }
+
     public static List<RoomDTO> toRoomDTOList(List<Room> rooms) {
         return List.of(rooms.stream().map(RoomDTO::new).toArray(RoomDTO[]::new));
     }
@@ -35,15 +48,15 @@ public class RoomDTO {
             return false;
 
         RoomDTO roomDTO = (RoomDTO) o;
-        return getRoomId().equals(roomDTO.getRoomId()) && getRoomNumber().equals(roomDTO.getRoomNumber()) && getRoomPrice().equals(roomDTO.getRoomPrice()) && getRoomType() == roomDTO.getRoomType();
+        return getRoomNumber().equals(roomDTO.getRoomNumber()) && getRoomPrice().equals(roomDTO.getRoomPrice()) && getRoomType() == roomDTO.getRoomType();
     }
 
     @Override
     public int hashCode() {
-        int result = getRoomId().hashCode();
-        result = 31 * result + getRoomNumber().hashCode();
+        int result = getRoomNumber().hashCode();
         result = 31 * result + getRoomPrice().hashCode();
         result = 31 * result + getRoomType().hashCode();
         return result;
     }
+
 }

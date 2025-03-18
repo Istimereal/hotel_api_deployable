@@ -56,4 +56,5 @@ public class HotelDTO {
         return getId().hashCode();
     }
 
+
 }

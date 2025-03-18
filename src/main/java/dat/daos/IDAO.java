@@ -11,5 +11,4 @@ public interface IDAO<T, I> {
     T create(T t) throws ApiException;
     T update(I i, T t) throws ApiException;
     void delete(I i) throws ApiException;
-
 }

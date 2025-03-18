@@ -2,22 +2,22 @@
 GET {{url}}/auth/test/
 
 ### Populate the database with some data
-GET {{url}}/hotels/populate/
+POST {{url}}/hotels/populate/
 
 ### Create a new user - this one will only get a USER role by default
 POST {{url}}/auth/register/
 
 {
-    "username": "user",
-    "password": "test123"
+    "username": "jon",
+    "password": "1234"
 }
 
 ###
 POST {{url}}/auth/login/
 
 {
-    "username": "user",
-    "password": "test123"
+    "username": "jon",
+    "password": "1234"
 }
 
 > {%
@@ -57,7 +57,7 @@ GET {{url}}/hotels/23
 ###
 POST {{url}}/hotels
 Content-Type: application/json
-Authorization: Bearer {{jwt_token}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJKb24gQmVydGVsc2VuIiwic3ViIjoiam9uIiwiZXhwIjoxNzMzMTM0NzUwLCJyb2xlcyI6ImFkbWluLHVzZXIiLCJ1c2VybmFtZSI6ImpvbiJ9.ztzysijeW8CLyjKUr3kPbBSwQ2uDWLyASkxHIj6GFag
 
 {
   "hotelName": "Holiday Inn",

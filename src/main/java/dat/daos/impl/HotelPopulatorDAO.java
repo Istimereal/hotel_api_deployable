@@ -1,59 +1,38 @@
-package dat.controllers.impl;
+package dat.daos.impl;
 
+import dat.config.HibernateConfig;
 import dat.entities.Hotel;
 import dat.entities.Room;
-import dat.security.entities.User;
-import dat.security.entities.Role;
-import dk.bugelhartmann.UserDTO;
 import jakarta.persistence.EntityManagerFactory;
 import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 import java.util.Set;
 
-public class Populator {
+public class HotelPopulatorDAO {
 
-    public static UserDTO[] populateUsers(EntityManagerFactory emf) {
-        User user, admin;
-        Role userRole, adminRole;
+    private static EntityManagerFactory emf = HibernateConfig.getEntityManagerFactory();
 
-        user = new User("usertest", "user123");
-        admin = new User("admintest", "admin123");
-        userRole = new Role("USER");
-        adminRole = new Role("ADMIN");
-        user.addRole(userRole);
-        admin.addRole(adminRole);
-
-        try (var em = emf.createEntityManager())
-        {
-            em.getTransaction().begin();
-            em.persist(userRole);
-            em.persist(adminRole);
-            em.persist(user);
-            em.persist(admin);
-            em.getTransaction().commit();
-        }
-            UserDTO userDTO = new UserDTO(user.getUsername(), "user123");
-            UserDTO adminDTO = new UserDTO(admin.getUsername(), "admin123");
-            return new UserDTO[]{userDTO, adminDTO};
-        }
-
-    public static Hotel[] populateHotels(EntityManagerFactory emf) {
-
+    public static Hotel[] populate() {
+        // Populate the database with some mock data
         Set<Room> calRooms = getCalRooms();
         Set<Room> hilRooms = getHilRooms();
 
+        Hotel california = new Hotel("Hotel California", "California", Hotel.HotelType.LUXURY);
+        Hotel hilton = new Hotel("Hilton", "Copenhagen", Hotel.HotelType.STANDARD);
+        california.setRooms(calRooms);
+        hilton.setRooms(hilRooms);
+
         try (var em = emf.createEntityManager()) {
             em.getTransaction().begin();
-            Hotel california = new Hotel("Hotel California", "California", Hotel.HotelType.LUXURY);
-            Hotel hilton = new Hotel("Hilton", "Copenhagen", Hotel.HotelType.STANDARD);
-            california.setRooms(calRooms);
-            hilton.setRooms(hilRooms);
             em.persist(california);
             em.persist(hilton);
             em.getTransaction().commit();
-            return new Hotel[]{california, hilton};
         }
+
+        Hotel[] hotels = {california, hilton};
+        return hotels;
+
     }
 
     @NotNull
