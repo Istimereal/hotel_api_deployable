@@ -1,4 +1,4 @@
-package dat.controllers.impl;
+package dat.utils;
 
 import dat.entities.Hotel;
 import dat.entities.Room;

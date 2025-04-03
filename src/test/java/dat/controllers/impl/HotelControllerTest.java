@@ -2,21 +2,18 @@ package dat.controllers.impl;
 
 import dat.config.ApplicationConfig;
 import dat.config.HibernateConfig;
-import dat.daos.impl.HotelDAO;
 import dat.dtos.HotelDTO;
 import dat.entities.Hotel;
 import dat.security.controllers.SecurityController;
 import dat.security.daos.SecurityDAO;
-import dat.security.entities.User;
 import dat.security.exceptions.ValidationException;
+import dat.utils.Populator;
 import dk.bugelhartmann.UserDTO;
 import io.javalin.Javalin;
 import io.restassured.common.mapper.TypeRef;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -35,14 +32,14 @@ class HotelControllerTest {
     private static Hotel california, hilton;
     private static UserDTO userDTO, adminDTO;
     private static String userToken, adminToken;
-    private static final String BASE_URL = "http://localhost:7070/api";
+    private static final String BASE_URL = "http://localhost:7071/api";
 
     @BeforeAll
     void setUpAll() {
         HibernateConfig.setTest(true);
 
         // Start api
-        app = ApplicationConfig.startServer(7070);
+        app = ApplicationConfig.startServer(7071);
     }
 
     @BeforeEach
