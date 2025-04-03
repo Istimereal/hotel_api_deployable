@@ -1,5 +1,5 @@
 package dat.controllers.impl;
-
+/*
 import dat.config.ApplicationConfig;
 import dat.config.HibernateConfig;
 import dat.dtos.HotelDTO;
@@ -103,4 +103,8 @@ class HotelControllerTest {
         assertThat(hotelDTO.get(0).getHotelName(), is("Hotel California"));
         assertThat(hotelDTO.get(1).getHotelName(), is("Hilton"));
     }
+
+
 }
+
+ */

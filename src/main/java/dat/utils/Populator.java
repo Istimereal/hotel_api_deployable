@@ -1,15 +1,9 @@
 package dat.utils;
 
-import dat.entities.Hotel;
-import dat.entities.Room;
 import dat.security.entities.User;
 import dat.security.entities.Role;
 import dk.bugelhartmann.UserDTO;
 import jakarta.persistence.EntityManagerFactory;
-import org.jetbrains.annotations.NotNull;
-
-import java.math.BigDecimal;
-import java.util.Set;
 
 public class Populator {
 
@@ -38,6 +32,8 @@ public class Populator {
             return new UserDTO[]{userDTO, adminDTO};
         }
 
+
+   /*
     public static Hotel[] populateHotels(EntityManagerFactory emf) {
 
         Set<Room> calRooms = getCalRooms();
@@ -81,4 +77,6 @@ public class Populator {
         Room[] roomArray = {r111, r112, r113, r114, r115, r116};
         return Set.of(roomArray);
     }
+    */
+
 }
