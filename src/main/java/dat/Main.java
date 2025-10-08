@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Main {
-// there are more main classes
+// there are more main classes.
     public static void main(String[] args) {
         ApplicationConfig.startServer(7070);
     }
